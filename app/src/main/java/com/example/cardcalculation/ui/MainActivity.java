@@ -55,9 +55,8 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.OnGam
 
     @Override
     public void onGameClick(Game game) {
-        // onGameClick will be handled later ======================
-//        Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
-//        intent.putExtra("game_id", game.getId());
-//        startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, ShowGameActivity.class);
+        intent.putExtra("game_id", game.getId());
+        startActivity(intent);
     }
 }
