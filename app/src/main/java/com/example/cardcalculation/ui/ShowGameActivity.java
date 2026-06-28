@@ -3,6 +3,7 @@ package com.example.cardcalculation.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -66,7 +67,6 @@ public class ShowGameActivity extends AppCompatActivity {
         });
 
         MaterialButton btnDelete = findViewById(R.id.btn_delete);
-
         btnDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setTitle("Delete Game")
@@ -83,6 +83,12 @@ public class ShowGameActivity extends AppCompatActivity {
                     .show();
         });
 
+        Button addBid = findViewById(R.id.add_bid);
+        addBid.setOnClickListener(v -> {
+            Intent intent = new Intent(ShowGameActivity.this, AddBidActivity.class);
+            intent.putExtra("game_id", gameId);
+            startActivity(intent);
+        });
     }
 
     @Override

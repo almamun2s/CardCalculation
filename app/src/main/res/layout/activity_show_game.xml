@@ -16,6 +16,7 @@
 
     <!-- Top Team Information -->
     <LinearLayout
+        android:id="@+id/team_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -108,11 +109,25 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/add_bid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Bid" />
+
+    </LinearLayout>
+
     <!-- Divider -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="12dp"
         android:background="#DDDDDD" />
 
