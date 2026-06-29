@@ -12,18 +12,31 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cardcalculation.R;
+import com.example.cardcalculation.adapter.BidAdapter;
+import com.example.cardcalculation.adapter.GameAdapter;
+import com.example.cardcalculation.data.model.Bid;
+import com.example.cardcalculation.data.model.Game;
+import com.example.cardcalculation.view.BidViewModel;
 import com.example.cardcalculation.view.GameViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class ShowGameActivity extends AppCompatActivity {
     private TextView txtTeam1Points, txtTeam2Points, txtPlayer1, txtPlayer2, txtPlayer3, txtPlayer4;
     private int gameId = -1;
     private GameViewModel gameViewModel;
+    private BidViewModel bidViewModel;
+    private RecyclerView recyclerView;
+    private BidAdapter bidAdapter;
 
 
     @Override
@@ -59,6 +72,23 @@ public class ShowGameActivity extends AppCompatActivity {
                     txtTeam2Points.setText(String.valueOf(game.getTeam2points()));
                 }
             });
+
+            bidViewModel = new ViewModelProvider(this).get(BidViewModel.class);
+
+            // Setup RecyclerView
+            recyclerView = findViewById(R.id.bidRecyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            bidAdapter = new BidAdapter();
+            recyclerView.setAdapter(bidAdapter);
+
+            // Observe LiveData - this automatically updates UI when data changes
+            bidViewModel.getAllBids(gameId).observe(this, new Observer<List<Bid>>() {
+                @Override
+                public void onChanged(List<Bid> bids) {
+                    bidAdapter.setBids(bids);
+                }
+            });
+
         }else{
             finish();
         }
