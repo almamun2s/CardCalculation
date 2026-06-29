@@ -26,11 +26,10 @@ public class AddBidActivity extends AppCompatActivity {
 
     EditText etTeam1bid, etTeam2bid;
     TextView team1info, team2info;
-    Integer gameId;
+    Integer gameId, bidId;
     MaterialButton btnSave, btnDelete;
     private BidViewModel bidViewModel;
     private GameViewModel gameViewModel;
-    Integer bidId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

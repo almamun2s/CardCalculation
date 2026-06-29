@@ -143,7 +143,9 @@ public class ShowGameActivity extends AppCompatActivity implements BidAdapter.On
 
     @Override
     public void onBidClickResolve(Bid bid) {
-
+        Intent intent = new Intent(ShowGameActivity.this, ResolveBidActivity.class);
+        intent.putExtra("bid_id", bid.getId());
+        startActivity(intent);
     }
 
 }

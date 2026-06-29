@@ -43,8 +43,13 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder>{
         holder.team1_point.setText(String.valueOf(bid.getTeam1bid()));
         holder.team2_point.setText(String.valueOf(bid.getTeam2bid()));
 
-        holder.btn_edit.setOnClickListener(v -> listener.onBidClickEdit(bid));
-        holder.btn_resolve.setOnClickListener(v -> listener.onBidClickResolve(bid));
+        if (bid.getResolved()){
+            holder.btn_resolve.setVisibility(View.GONE);
+            holder.btn_edit.setVisibility(View.GONE);
+        }else{
+            holder.btn_edit.setOnClickListener(v -> listener.onBidClickEdit(bid));
+            holder.btn_resolve.setOnClickListener(v -> listener.onBidClickResolve(bid));
+        }
 
     }
 

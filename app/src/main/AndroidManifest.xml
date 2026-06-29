@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CardCalculation">
         <activity
+            android:name=".ui.ResolveBidActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.AddBidActivity"
             android:exported="false" />
         <activity
