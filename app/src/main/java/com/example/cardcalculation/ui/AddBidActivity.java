@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,8 +20,6 @@ import com.example.cardcalculation.view.BidViewModel;
 import com.example.cardcalculation.view.GameViewModel;
 import com.google.android.material.button.MaterialButton;
 
-import java.util.List;
-
 public class AddBidActivity extends AppCompatActivity {
 
     EditText etTeam1bid, etTeam2bid;
@@ -31,6 +28,7 @@ public class AddBidActivity extends AppCompatActivity {
     MaterialButton btnSave;
     private BidViewModel bidViewModel;
     private GameViewModel gameViewModel;
+    Integer bidId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +52,6 @@ public class AddBidActivity extends AppCompatActivity {
             gameId = getIntent().getIntExtra("game_id", -1);
 
             gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
-            bidViewModel = new ViewModelProvider(this).get(BidViewModel.class);
-
 
             gameViewModel.getGameById(gameId).observe(this, game -> {
                 if (game != null) {
@@ -64,8 +60,28 @@ public class AddBidActivity extends AppCompatActivity {
                 }
             });
 
-
+            bidViewModel = new ViewModelProvider(this).get(BidViewModel.class);
             btnSave.setOnClickListener(v -> saveBid());
+        } else if (getIntent().hasExtra("bid_id")) {
+            bidId = getIntent().getIntExtra("bid_id", -1);
+            bidViewModel = new ViewModelProvider(this).get(BidViewModel.class);
+
+            bidViewModel.getBidById(bidId).observe(this, bid -> {
+                if (bid != null) {
+                    gameId = bid.getGameId();
+                    etTeam1bid.setText(String.valueOf(bid.getTeam1bid()));
+                    etTeam2bid.setText(String.valueOf(bid.getTeam2bid()));
+
+                    gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
+                    gameViewModel.getGameById(gameId).observe(this, game -> {
+                        if (game != null) {
+                            team1info.setText("Bid of " + game.getPlayer1() + " and " + game.getPlayer2());
+                            team2info.setText("Bid of " + game.getPlayer3() + " and " + game.getPlayer4());
+                        }
+                    });
+                }
+            });
+
         }else{
             finish();
         }

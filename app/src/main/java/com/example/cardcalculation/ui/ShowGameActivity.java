@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ShowGameActivity extends AppCompatActivity {
+public class ShowGameActivity extends AppCompatActivity implements BidAdapter.OnBidClickListener {
     private TextView txtTeam1Points, txtTeam2Points, txtPlayer1, txtPlayer2, txtPlayer3, txtPlayer4;
     private int gameId = -1;
     private GameViewModel gameViewModel;
@@ -78,7 +78,7 @@ public class ShowGameActivity extends AppCompatActivity {
             // Setup RecyclerView
             recyclerView = findViewById(R.id.bidRecyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            bidAdapter = new BidAdapter();
+            bidAdapter = new BidAdapter(this);
             recyclerView.setAdapter(bidAdapter);
 
             // Observe LiveData - this automatically updates UI when data changes
@@ -132,5 +132,12 @@ public class ShowGameActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBidClick(Bid bid) {
+        Intent intent = new Intent(ShowGameActivity.this, AddBidActivity.class);
+        intent.putExtra("bid_id", bid.getId());
+        startActivity(intent);
     }
 }
