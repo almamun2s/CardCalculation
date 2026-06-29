@@ -76,6 +76,15 @@
                 android:layout_marginTop="15dp"
                 app:cornerRadius="8dp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete Bid"
+                app:backgroundTint="@android:color/holo_red_dark"
+                android:layout_marginTop="15dp"
+                app:cornerRadius="8dp" />
+
         </LinearLayout>
     </ScrollView>
 

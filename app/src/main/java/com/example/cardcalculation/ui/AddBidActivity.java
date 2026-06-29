@@ -5,10 +5,12 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
 
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -25,7 +27,7 @@ public class AddBidActivity extends AppCompatActivity {
     EditText etTeam1bid, etTeam2bid;
     TextView team1info, team2info;
     Integer gameId;
-    MaterialButton btnSave;
+    MaterialButton btnSave, btnDelete;
     private BidViewModel bidViewModel;
     private GameViewModel gameViewModel;
     Integer bidId;
@@ -46,6 +48,7 @@ public class AddBidActivity extends AppCompatActivity {
         team1info = findViewById(R.id.team1info);
         team2info = findViewById(R.id.team2info);
         btnSave = findViewById(R.id.btn_save);
+        btnDelete = findViewById(R.id.btn_delete);
 
 
         if (getIntent().hasExtra("game_id")) {
@@ -62,7 +65,11 @@ public class AddBidActivity extends AppCompatActivity {
 
             bidViewModel = new ViewModelProvider(this).get(BidViewModel.class);
             btnSave.setOnClickListener(v -> saveBid());
+            btnDelete.setVisibility(View.GONE);
+
         } else if (getIntent().hasExtra("bid_id")) {
+            getSupportActionBar().setTitle("Edit Bid");
+            btnSave.setText("Update Bid");
             bidId = getIntent().getIntExtra("bid_id", -1);
             bidViewModel = new ViewModelProvider(this).get(BidViewModel.class);
 
@@ -80,6 +87,23 @@ public class AddBidActivity extends AppCompatActivity {
                         }
                     });
                 }
+            });
+
+            btnSave.setOnClickListener(v -> updateBid());
+            btnDelete.setOnClickListener(v -> {
+                new AlertDialog.Builder(this)
+                        .setTitle("Delete Bid")
+                        .setMessage("Are you sure you want to delete this bid?")
+                        .setPositiveButton("Delete", (dialog, which) -> {
+                            bidViewModel.getBidById(bidId).observe(this, bid -> {
+                                if (bid != null) {
+                                    bidViewModel.delete(bid);
+                                    finish();
+                                }
+                            });
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
             });
 
         }else{
@@ -103,6 +127,29 @@ public class AddBidActivity extends AppCompatActivity {
         bid.setResolved(false);
         bidViewModel.insert(bid);
         Toast.makeText(this, "Bid saved", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    private void updateBid(){
+        String team1bid = etTeam1bid.getText().toString().trim();
+        String team2bid = etTeam2bid.getText().toString().trim();
+
+        if (team1bid.isEmpty() || team2bid.isEmpty()){
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        LiveData bidLiveData = bidViewModel.getBidById(bidId);
+        bidLiveData.observe(this, new Observer<Bid>() {
+            @Override
+            public void onChanged(Bid bid) {
+                bid.setTeam1bid(Integer.parseInt(team1bid));
+                bid.setTeam2bid(Integer.parseInt(team2bid));
+                bidViewModel.update(bid);
+                bidLiveData.removeObserver(this);
+            }
+        });
+        Toast.makeText(this, "Bid updated", Toast.LENGTH_SHORT).show();
         finish();
     }
 

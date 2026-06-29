@@ -19,7 +19,8 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder>{
     private List<Bid> bids;
     private OnBidClickListener listener;
     public interface OnBidClickListener{
-        void onBidClick(Bid bid);
+        void onBidClickEdit(Bid bid);
+        void onBidClickResolve(Bid bid);
     }
 
     // Constructor
@@ -42,7 +43,8 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder>{
         holder.team1_point.setText(String.valueOf(bid.getTeam1bid()));
         holder.team2_point.setText(String.valueOf(bid.getTeam2bid()));
 
-        holder.btn_resolve.setOnClickListener(v -> listener.onBidClick(bid));
+        holder.btn_edit.setOnClickListener(v -> listener.onBidClickEdit(bid));
+        holder.btn_resolve.setOnClickListener(v -> listener.onBidClickResolve(bid));
 
     }
 
@@ -58,13 +60,14 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder>{
 
     static class BidViewHolder extends RecyclerView.ViewHolder {
         TextView team1_point, team2_point;
-        Button btn_resolve;
+        Button btn_resolve, btn_edit;
 
         BidViewHolder(@NonNull View itemView) {
             super(itemView);
             team1_point = itemView.findViewById(R.id.txt_team1_point);
             team2_point = itemView.findViewById(R.id.txt_team2_point);
             btn_resolve = itemView.findViewById(R.id.btn_resolve);
+            btn_edit = itemView.findViewById(R.id.btn_edit);
         }
     }
 }
