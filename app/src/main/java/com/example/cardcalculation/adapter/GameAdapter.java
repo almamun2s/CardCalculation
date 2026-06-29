@@ -40,12 +40,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
         Game game = games.get(position);
 
-        // Set game team
-        if (game.getTeam()) {
-            holder.gameTeam.setText("Team");
-        } else {
-            holder.gameTeam.setText("Single");
-        }
+        String gameTeamText = String.format(
+                "%s + %s  vs  %s + %s",
+                game.getPlayer1(),
+                game.getPlayer2(),
+                game.getPlayer3(),
+                game.getPlayer4()
+        );
+        holder.gameTeam.setText(gameTeamText);
 
         // Format timestamp
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
@@ -53,10 +55,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         holder.gameDate.setText(date);
 
         holder.itemView.setOnClickListener(v -> listener.onGameClick(game));
-//        holder.itemView.setOnLongClickListener(v -> {
-//            listener.onNoteLongClick(note);
-//            return true;
-//        });
     }
 
     @Override

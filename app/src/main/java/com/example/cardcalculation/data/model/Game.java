@@ -24,6 +24,11 @@ public class Game {
     @ColumnInfo(name = "isTeam")
     private Boolean isTeam;
 
+    @ColumnInfo(name = "team1points", defaultValue = "0")
+    private int team1points = 0;
+
+    @ColumnInfo(name = "team2points", defaultValue = "0")
+    private int team2points = 0;
 
     @ColumnInfo(name = "createdAt")
     private long createdAt;
@@ -52,6 +57,12 @@ public class Game {
     public Boolean getTeam() {return isTeam;}
 
     public void setTeam(Boolean team) {isTeam = team;}
+
+    public int getTeam1points() {return team1points;}
+    public void setTeam1points(int team1points) {this.team1points = team1points;}
+
+    public int getTeam2points() {return team2points;}
+    public void setTeam2points(int team2points) {this.team2points = team2points;}
 
     public long getCreatedAt() {return createdAt;}
     public void setCreatedAt(long createdAt) {this.createdAt = createdAt;}

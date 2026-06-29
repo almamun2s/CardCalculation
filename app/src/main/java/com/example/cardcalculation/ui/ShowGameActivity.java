@@ -43,6 +43,8 @@ public class ShowGameActivity extends AppCompatActivity {
         txtPlayer2 = findViewById(R.id.txtPlayer2);
         txtPlayer3 = findViewById(R.id.txtPlayer3);
         txtPlayer4 = findViewById(R.id.txtPlayer4);
+        txtTeam1Points = findViewById(R.id.txtTeam1Points);
+        txtTeam2Points = findViewById(R.id.txtTeam2Points);
 
         if (getIntent().hasExtra("game_id")) {
             gameId = getIntent().getIntExtra("game_id", -1);
@@ -53,6 +55,8 @@ public class ShowGameActivity extends AppCompatActivity {
                     txtPlayer2.setText(game.getPlayer2());
                     txtPlayer3.setText(game.getPlayer3());
                     txtPlayer4.setText(game.getPlayer4());
+                    txtTeam1Points.setText(String.valueOf(game.getTeam1points()));
+                    txtTeam2Points.setText(String.valueOf(game.getTeam2points()));
                 }
             });
         }else{
