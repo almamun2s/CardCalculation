@@ -1,5 +1,6 @@
 package com.example.cardcalculation.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,15 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder>{
         if (bid.getResolved()){
             holder.btn_resolve.setVisibility(View.GONE);
             holder.btn_edit.setVisibility(View.GONE);
+
+            holder.team1_point.setTextColor(Color.parseColor(bid.getTeam1bidIsPositive() ? "#149D14" : "#BD1C1C"));
+            holder.team2_point.setTextColor(Color.parseColor(bid.getTeam2bidIsPositive() ? "#149D14" : "#BD1C1C"));
         }else{
+            holder.btn_resolve.setVisibility(View.VISIBLE);
+            holder.btn_edit.setVisibility(View.VISIBLE);
+            holder.team1_point.setTextColor(Color.BLACK);
+            holder.team2_point.setTextColor(Color.BLACK);
+
             holder.btn_edit.setOnClickListener(v -> listener.onBidClickEdit(bid));
             holder.btn_resolve.setOnClickListener(v -> listener.onBidClickResolve(bid));
         }

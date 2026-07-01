@@ -26,6 +26,12 @@ public class Bid {
     @ColumnInfo(name = "team2bid")
     private int team2bid;
 
+    @ColumnInfo(name = "team1bidIsPositive", defaultValue = "0")
+    private Boolean team1bidIsPositive = false;
+
+    @ColumnInfo(name = "team2bidIsPositive", defaultValue = "0")
+    private Boolean team2bidIsPositive = false;
+
     @ColumnInfo(name = "isResolved", defaultValue = "0")
     private Boolean isResolved = false;
 
@@ -51,6 +57,12 @@ public class Bid {
 
     public Boolean getResolved() {return isResolved;}
     public void setResolved(Boolean resolved) {isResolved = resolved;}
+
+    public Boolean getTeam1bidIsPositive() {return team1bidIsPositive;}
+    public void setTeam1bidIsPositive(Boolean team1bidIsPositive) {this.team1bidIsPositive = team1bidIsPositive;}
+
+    public Boolean getTeam2bidIsPositive() {return team2bidIsPositive;}
+    public void setTeam2bidIsPositive(Boolean team2bidIsPositive) {this.team2bidIsPositive = team2bidIsPositive;}
 
     public long getCreatedAt() {return createdAt;}
     public void setCreatedAt(long createdAt) {this.createdAt = createdAt;}

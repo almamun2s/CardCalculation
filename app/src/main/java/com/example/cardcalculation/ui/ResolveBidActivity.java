@@ -104,6 +104,8 @@ public class ResolveBidActivity extends AppCompatActivity {
         boolean team2isPositive = selectedIdT2 == R.id.rb_success_team2;
 
         currentBid.setResolved(true);
+        currentBid.setTeam1bidIsPositive(team1isPositive);
+        currentBid.setTeam2bidIsPositive(team2isPositive);
         if (team1isPositive) {
             currentGame.setTeam1points(currentGame.getTeam1points() + team1Point);
         } else {
@@ -118,7 +120,7 @@ public class ResolveBidActivity extends AppCompatActivity {
         gameViewModel.update(currentGame);
         bidViewModel.update(currentBid);
 
-        Toast.makeText(this, "Team 1 Point: " + team1Point + "\nTeam 2 Point: " + team2Point, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Bid Resolved ", Toast.LENGTH_SHORT).show();
         finish();
     }
 }

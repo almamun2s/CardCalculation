@@ -11,7 +11,7 @@ import com.example.cardcalculation.data.dao.GameDao;
 import com.example.cardcalculation.data.model.Bid;
 import com.example.cardcalculation.data.model.Game;
 
-@Database(entities = {Game.class, Bid.class}, version = 2, exportSchema = false)
+@Database(entities = {Game.class, Bid.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;
 

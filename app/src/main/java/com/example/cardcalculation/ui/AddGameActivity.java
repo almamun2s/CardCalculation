@@ -99,7 +99,6 @@ public class AddGameActivity extends AppCompatActivity {
             return;
         }
 
-
         if (gameId == -1) {
             // Create new game
             Game game = new Game();
